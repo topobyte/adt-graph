@@ -255,7 +255,14 @@ public class Graph<T>
 		return partition;
 	}
 
-	private Set<T> getReachable(T node)
+	/**
+	 * Find all nodes reachable in the graph starting from the specified node.
+	 * 
+	 * @param node
+	 *            the node to start the traversal of the graph from.
+	 * @return a set containing all reachable nodes of the graph.
+	 */
+	public Set<T> getReachable(T node)
 	{
 		Set<T> reachable = new HashSet<T>();
 		Set<T> check = new HashSet<T>();
