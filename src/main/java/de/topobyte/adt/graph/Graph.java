@@ -34,9 +34,23 @@ import java.util.Set;
 public class Graph<T>
 {
 
-	private Set<T> nodes = new HashSet<T>();
-	private Map<T, Set<T>> edgesOut = new HashMap<T, Set<T>>();
-	private Map<T, Set<T>> edgesIn = new HashMap<T, Set<T>>();
+	private Set<T> nodes;
+	private Map<T, Set<T>> edgesOut;
+	private Map<T, Set<T>> edgesIn;
+
+	public Graph()
+	{
+		nodes = new HashSet<>();
+		edgesOut = new HashMap<>();
+		edgesIn = new HashMap<>();
+	}
+
+	private Graph(Set<T> nodes, Map<T, Set<T>> edgesOut, Map<T, Set<T>> edgesIn)
+	{
+		this.nodes = nodes;
+		this.edgesOut = edgesOut;
+		this.edgesIn = edgesIn;
+	}
 
 	/**
 	 * Add a node to the graph.
@@ -261,6 +275,19 @@ public class Graph<T>
 			}
 		}
 		return reachable;
+	}
+
+	/**
+	 * Create a graph with the same nodes as this one, just all edges reversed.
+	 * Note that the returned graph uses the same internal data structures as
+	 * the original graph so changes on the reversed graph will affect the
+	 * original graph and vice versa.
+	 * 
+	 * @return a graph with all edges reversed.
+	 */
+	public Graph<T> reversed()
+	{
+		return new Graph<T>(nodes, edgesIn, edgesOut);
 	}
 
 }
