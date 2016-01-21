@@ -52,6 +52,18 @@ public class Graph<T>
 	}
 
 	/**
+	 * Returns <tt>true</tt> if this graph contains the specified node.
+	 * 
+	 * @param node
+	 *            node whose presence in this graph is to be tested.
+	 * @return <tt>true</tt> if this graph contains the specified node.
+	 */
+	public boolean containsNode(T node)
+	{
+		return nodes.contains(node);
+	}
+
+	/**
 	 * Remove a node from the graph.
 	 * 
 	 * @param node
@@ -110,6 +122,23 @@ public class Graph<T>
 	{
 		edgesOut.get(a).add(b);
 		edgesIn.get(b).add(a);
+	}
+
+	/**
+	 * Returns <tt>true</tt> if this graph contains the specified edge from
+	 * <tt>a</tt> to <tt>b</tt>.
+	 * 
+	 * @param a
+	 *            a node.
+	 * @param b
+	 *            another node.
+	 * @return <tt>true</tt> if this graph contains an edge from <tt>a</tt> to
+	 *         <tt>b</tt>.
+	 */
+	public boolean containsEdge(T a, T b)
+	{
+		Set<T> out = edgesOut.get(a);
+		return out.contains(b);
 	}
 
 	/**
