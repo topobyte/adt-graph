@@ -53,13 +53,17 @@ public class Graph<T>
 	}
 
 	/**
-	 * Add a node to the graph.
+	 * Add a node to the graph. Nothing happens if the node is already contained
+	 * in the graph.
 	 * 
 	 * @param node
 	 *            the node to add.
 	 */
 	public void addNode(T node)
 	{
+		if (nodes.contains(node)) {
+			return;
+		}
 		nodes.add(node);
 		edgesOut.put(node, new HashSet<T>());
 		edgesIn.put(node, new HashSet<T>());
@@ -115,9 +119,9 @@ public class Graph<T>
 	 * Add all these nodes to the graph.
 	 * 
 	 * @param nodesToAdd
-	 *            a set of nodes to add.
+	 *            a collection of nodes to add.
 	 */
-	public void addNodes(Set<T> nodesToAdd)
+	public void addNodes(Collection<T> nodesToAdd)
 	{
 		for (T node : nodesToAdd) {
 			addNode(node);
