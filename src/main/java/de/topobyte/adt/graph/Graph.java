@@ -239,14 +239,14 @@ public class Graph<T>
 	 */
 	public Set<Set<T>> getPartition()
 	{
-		Set<Set<T>> partition = new HashSet<Set<T>>();
+		Set<Set<T>> partition = new HashSet<>();
 
-		Set<T> left = new HashSet<T>();
+		Set<T> left = new HashSet<>();
 		left.addAll(nodes);
 		while (left.size() > 0) {
 			T next = left.iterator().next();
 			left.remove(next);
-			Set<T> connected = new HashSet<T>();
+			Set<T> connected = new HashSet<>();
 			connected.add(next);
 			Set<T> out = getReachable(next);
 			for (T o : out) {
@@ -268,8 +268,8 @@ public class Graph<T>
 	 */
 	public Set<T> getReachable(T node)
 	{
-		Set<T> reachable = new HashSet<T>();
-		Set<T> check = new HashSet<T>();
+		Set<T> reachable = new HashSet<>();
+		Set<T> check = new HashSet<>();
 		check.add(node);
 		while (check.size() > 0) {
 			T next = check.iterator().next();
@@ -298,7 +298,7 @@ public class Graph<T>
 	 */
 	public Graph<T> reversed()
 	{
-		return new Graph<T>(nodes, edgesIn, edgesOut);
+		return new Graph<>(nodes, edgesIn, edgesOut);
 	}
 
 }

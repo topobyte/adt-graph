@@ -43,9 +43,9 @@ public class BreadthFirstEnumerationBuilder<T> implements EnumerationBuilder<T>
 
 	Graph<T> graph;
 
-	Set<T> enumerated = new HashSet<T>();
-	List<T> enumeration = new ArrayList<T>();
-	Set<T> available = new HashSet<T>();
+	Set<T> enumerated = new HashSet<>();
+	List<T> enumeration = new ArrayList<>();
+	Set<T> available = new HashSet<>();
 
 	/**
 	 * Create a new EnumerationBuilder for the denoted graph {@code graph}.
@@ -78,8 +78,8 @@ public class BreadthFirstEnumerationBuilder<T> implements EnumerationBuilder<T>
 			T n = available.iterator().next();
 			// System.out.println("a: " + n);
 			enumerate(n);
-			List<T> neighbours = new ArrayList<T>();
-			Set<T> neighbourSet = new HashSet<T>();
+			List<T> neighbours = new ArrayList<>();
+			Set<T> neighbourSet = new HashSet<>();
 			addNeighbours(neighbours, neighbourSet, n);
 			while (true) {
 				if (neighbourSet.size() == 0) {

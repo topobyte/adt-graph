@@ -46,9 +46,9 @@ public class SimpleEnumerationBuilder<T> implements EnumerationBuilder<T>
 
 	Graph<T> graph;
 
-	Set<T> enumerated = new HashSet<T>();
-	List<T> enumeration = new ArrayList<T>();
-	Set<T> available = new HashSet<T>();
+	Set<T> enumerated = new HashSet<>();
+	List<T> enumeration = new ArrayList<>();
+	Set<T> available = new HashSet<>();
 
 	/**
 	 * Create a new EnumerationBuilder for the denoted graph {@code graph}.
@@ -81,7 +81,7 @@ public class SimpleEnumerationBuilder<T> implements EnumerationBuilder<T>
 			T n = available.iterator().next();
 			// System.out.println("a: " + n);
 			enumerate(n);
-			Set<T> neighbours = new HashSet<T>();
+			Set<T> neighbours = new HashSet<>();
 			addNeighbours(neighbours, n);
 			while (true) {
 				if (neighbours.size() == 0) {
