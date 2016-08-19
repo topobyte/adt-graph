@@ -51,7 +51,7 @@ public class SimpleEnumerationBuilder<T> implements EnumerationBuilder<T>
 	Set<T> available = new HashSet<>();
 
 	/**
-	 * Create a new EnumerationBuilder for the denoted graph {@code graph}.
+	 * Create a new EnumerationBuilder for the denoted {@code graph}.
 	 * 
 	 * @param graph
 	 *            the graph to build an enumeration for.
