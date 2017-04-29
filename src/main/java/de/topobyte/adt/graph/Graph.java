@@ -278,10 +278,12 @@ public class Graph<T>
 
 			Set<T> out = getEdgesOut(next);
 			for (T o : out) {
-				if (reachable.contains(o))
+				if (reachable.contains(o)) {
 					continue;
-				if (check.contains(o))
+				}
+				if (check.contains(o)) {
 					continue;
+				}
 				check.add(o);
 			}
 		}
