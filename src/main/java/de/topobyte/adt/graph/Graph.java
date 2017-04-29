@@ -196,7 +196,7 @@ public class Graph<T>
 	}
 
 	/**
-	 * Get all incoming edges (the nodes that can be reached via these edges).
+	 * Get all incoming edges (the nodes that are the origin of these edges).
 	 * 
 	 * @param node
 	 *            the node whose incoming edges to get.
