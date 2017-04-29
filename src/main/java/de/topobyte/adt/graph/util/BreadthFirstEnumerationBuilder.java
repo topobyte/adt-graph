@@ -71,20 +71,14 @@ public class BreadthFirstEnumerationBuilder<T> implements EnumerationBuilder<T>
 			available.add(node);
 		}
 
-		while (true) {
-			if (available.size() == 0) {
-				break;
-			}
+		while (!available.isEmpty()) {
 			T n = available.iterator().next();
 			// System.out.println("a: " + n);
 			enumerate(n);
 			List<T> neighbours = new ArrayList<>();
 			Set<T> neighbourSet = new HashSet<>();
 			addNeighbours(neighbours, neighbourSet, n);
-			while (true) {
-				if (neighbourSet.size() == 0) {
-					break;
-				}
+			while (!neighbourSet.isEmpty()) {
 				T next = chooseNext(neighbours, neighbourSet);
 				// System.out.println("b: " + next);
 				enumerate(next);

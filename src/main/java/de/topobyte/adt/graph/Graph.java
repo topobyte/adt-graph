@@ -243,7 +243,7 @@ public class Graph<T>
 
 		Set<T> left = new HashSet<>();
 		left.addAll(nodes);
-		while (left.size() > 0) {
+		while (!left.isEmpty()) {
 			T next = left.iterator().next();
 			left.remove(next);
 			Set<T> connected = new HashSet<>();
@@ -271,7 +271,7 @@ public class Graph<T>
 		Set<T> reachable = new HashSet<>();
 		Set<T> check = new HashSet<>();
 		check.add(node);
-		while (check.size() > 0) {
+		while (!check.isEmpty()) {
 			T next = check.iterator().next();
 			check.remove(next);
 			reachable.add(next);

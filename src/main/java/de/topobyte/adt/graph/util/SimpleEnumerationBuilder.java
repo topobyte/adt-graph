@@ -74,19 +74,13 @@ public class SimpleEnumerationBuilder<T> implements EnumerationBuilder<T>
 			available.add(node);
 		}
 
-		while (true) {
-			if (available.size() == 0) {
-				break;
-			}
+		while (!available.isEmpty()) {
 			T n = available.iterator().next();
 			// System.out.println("a: " + n);
 			enumerate(n);
 			Set<T> neighbours = new HashSet<>();
 			addNeighbours(neighbours, n);
-			while (true) {
-				if (neighbours.size() == 0) {
-					break;
-				}
+			while (!neighbours.isEmpty()) {
 				T next = chooseNext(neighbours);
 				neighbours.remove(next);
 				// System.out.println("b: " + next);
