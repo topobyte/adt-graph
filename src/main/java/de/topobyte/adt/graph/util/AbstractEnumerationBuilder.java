@@ -19,6 +19,7 @@ package de.topobyte.adt.graph.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -118,10 +119,39 @@ abstract class AbstractEnumerationBuilder<T> implements EnumerationBuilder<T>
 
 	protected abstract T chooseNext(List<T> neighbours, Set<T> neighbourSet);
 
+	protected boolean invertOrderOfNewNeighbors = false;
+
 	private void addNeighbours(List<T> neighbours, Set<T> neighbourSet, T n)
+	{
+		if (!invertOrderOfNewNeighbors) {
+			addNeighboursNormal(neighbours, neighbourSet, n);
+		} else {
+			addNeighboursReverse(neighbours, neighbourSet, n);
+		}
+	}
+
+	private void addNeighboursNormal(List<T> neighbours, Set<T> neighbourSet,
+			T n)
 	{
 		Set<T> nsNeighbours = graph.getEdgesOut(n);
 		for (T neighbour : nsNeighbours) {
+			if (enumerated.contains(neighbour)) {
+				continue;
+			}
+			if (neighbourSet.contains(neighbour)) {
+				continue;
+			}
+			neighbours.add(neighbour);
+			neighbourSet.add(neighbour);
+		}
+	}
+
+	private void addNeighboursReverse(List<T> neighbours, Set<T> neighbourSet,
+			T n)
+	{
+		List<T> list = new ArrayList<>(graph.getEdgesOut(n));
+		Collections.reverse(list);
+		for (T neighbour : list) {
 			if (enumerated.contains(neighbour)) {
 				continue;
 			}
