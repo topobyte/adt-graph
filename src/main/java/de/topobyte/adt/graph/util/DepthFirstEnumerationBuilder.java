@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Set;
 
 import de.topobyte.adt.graph.Graph;
+import de.topobyte.adt.graph.factories.SetFactory;
 
 /**
  * @author Sebastian Kuerten (sebastian@topobyte.de)
@@ -42,6 +43,20 @@ public class DepthFirstEnumerationBuilder<T>
 	public DepthFirstEnumerationBuilder(Graph<T> graph)
 	{
 		super(graph);
+	}
+
+	/**
+	 * Create a new EnumerationBuilder for the denoted {@code graph}.
+	 * 
+	 * @param graph
+	 *            the graph to build an enumeration for.
+	 * @param setFactory
+	 *            a factory to create sets for storing nodes with.
+	 */
+	public DepthFirstEnumerationBuilder(Graph<T> graph,
+			SetFactory<T> setFactory)
+	{
+		super(graph, setFactory);
 	}
 
 	@Override

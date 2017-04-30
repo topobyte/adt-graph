@@ -19,11 +19,12 @@ package de.topobyte.adt.graph.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import de.topobyte.adt.graph.Graph;
+import de.topobyte.adt.graph.factories.HashSetFactory;
+import de.topobyte.adt.graph.factories.SetFactory;
 
 /**
  * A common base class for {@link BreadthFirstEnumerationBuilder} and
@@ -37,18 +38,12 @@ import de.topobyte.adt.graph.Graph;
 abstract class AbstractEnumerationBuilder<T> implements EnumerationBuilder<T>
 {
 
-	@Override
-	public List<T> buildEnumeration()
-	{
-		build();
-		return getEnumeration();
-	}
-
+	SetFactory<T> setFactory;
 	Graph<T> graph;
 
-	Set<T> enumerated = new HashSet<>();
-	List<T> enumeration = new ArrayList<>();
-	Set<T> available = new HashSet<>();
+	Set<T> enumerated;
+	List<T> enumeration;
+	Set<T> available;
 
 	/**
 	 * Create a new EnumerationBuilder for the denoted {@code graph}.
@@ -58,7 +53,36 @@ abstract class AbstractEnumerationBuilder<T> implements EnumerationBuilder<T>
 	 */
 	public AbstractEnumerationBuilder(Graph<T> graph)
 	{
+		this(graph, new HashSetFactory<T>());
+	}
+
+	/**
+	 * Create a new EnumerationBuilder for the denoted {@code graph}.
+	 * 
+	 * @param graph
+	 *            the graph to build an enumeration for.
+	 * @param setFactory
+	 *            a factory to create sets for storing nodes with.
+	 */
+	public AbstractEnumerationBuilder(Graph<T> graph, SetFactory<T> setFactory)
+	{
 		this.graph = graph;
+		this.setFactory = setFactory;
+		init();
+	}
+
+	private void init()
+	{
+		enumerated = setFactory.create();
+		enumeration = new ArrayList<>();
+		available = setFactory.create();
+	}
+
+	@Override
+	public List<T> buildEnumeration()
+	{
+		build();
+		return getEnumeration();
 	}
 
 	@Override
@@ -79,7 +103,7 @@ abstract class AbstractEnumerationBuilder<T> implements EnumerationBuilder<T>
 			// System.out.println("a: " + n);
 			enumerate(n);
 			List<T> neighbours = createList();
-			Set<T> neighbourSet = new HashSet<>();
+			Set<T> neighbourSet = setFactory.create();
 			addNeighbours(neighbours, neighbourSet, n);
 			while (!neighbourSet.isEmpty()) {
 				T next = chooseNext(neighbours, neighbourSet);
