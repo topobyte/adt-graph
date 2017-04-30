@@ -42,7 +42,6 @@ abstract class AbstractEnumerationBuilder<T> implements EnumerationBuilder<T>
 	SetFactory<T> setFactory;
 	Graph<T> graph;
 
-	Set<T> enumerated;
 	List<T> enumeration;
 	Set<T> available;
 
@@ -74,7 +73,6 @@ abstract class AbstractEnumerationBuilder<T> implements EnumerationBuilder<T>
 
 	private void init()
 	{
-		enumerated = setFactory.create();
 		enumeration = new ArrayList<>();
 		available = setFactory.create();
 	}
@@ -135,7 +133,7 @@ abstract class AbstractEnumerationBuilder<T> implements EnumerationBuilder<T>
 	{
 		Set<T> nsNeighbours = graph.getEdgesOut(n);
 		for (T neighbour : nsNeighbours) {
-			if (enumerated.contains(neighbour)) {
+			if (!available.contains(neighbour)) {
 				continue;
 			}
 			if (neighbourSet.contains(neighbour)) {
@@ -144,6 +142,7 @@ abstract class AbstractEnumerationBuilder<T> implements EnumerationBuilder<T>
 			neighbours.add(neighbour);
 			neighbourSet.add(neighbour);
 		}
+
 	}
 
 	private void addNeighboursReverse(List<T> neighbours, Set<T> neighbourSet,
@@ -152,7 +151,7 @@ abstract class AbstractEnumerationBuilder<T> implements EnumerationBuilder<T>
 		List<T> list = new ArrayList<>(graph.getEdgesOut(n));
 		Collections.reverse(list);
 		for (T neighbour : list) {
-			if (enumerated.contains(neighbour)) {
+			if (!available.contains(neighbour)) {
 				continue;
 			}
 			if (neighbourSet.contains(neighbour)) {
@@ -171,7 +170,6 @@ abstract class AbstractEnumerationBuilder<T> implements EnumerationBuilder<T>
 		// System.out.println("enumerated: " + i);
 		// System.out.println(available.size());
 		available.remove(n);
-		enumerated.add(n);
 		enumeration.add(n);
 	}
 

@@ -46,7 +46,6 @@ public class SimpleEnumerationBuilder<T> implements EnumerationBuilder<T>
 
 	Graph<T> graph;
 
-	Set<T> enumerated = new HashSet<>();
 	List<T> enumeration = new ArrayList<>();
 	Set<T> available = new HashSet<>();
 
@@ -100,7 +99,7 @@ public class SimpleEnumerationBuilder<T> implements EnumerationBuilder<T>
 	{
 		Set<T> nsNeighbours = graph.getEdgesOut(n);
 		for (T neighbour : nsNeighbours) {
-			if (enumerated.contains(neighbour)) {
+			if (!available.contains(neighbour)) {
 				continue;
 			}
 			if (neighbours.contains(neighbour)) {
@@ -118,7 +117,6 @@ public class SimpleEnumerationBuilder<T> implements EnumerationBuilder<T>
 		// System.out.println("enumerated: " + i);
 		// System.out.println(available.size());
 		available.remove(n);
-		enumerated.add(n);
 		enumeration.add(n);
 	}
 
