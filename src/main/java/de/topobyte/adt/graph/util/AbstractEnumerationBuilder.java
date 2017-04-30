@@ -20,20 +20,21 @@ package de.topobyte.adt.graph.util;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
 import de.topobyte.adt.graph.Graph;
 
 /**
+ * A common base class for {@link BreadthFirstEnumerationBuilder} and
+ * {@link DepthFirstEnumerationBuilder}.
+ * 
  * @author Sebastian Kuerten (sebastian@topobyte.de)
  * 
  * @param <T>
  *            type of nodes in the graph.
  */
-public abstract class AbstractEnumerationBuilder<T>
-		implements EnumerationBuilder<T>
+abstract class AbstractEnumerationBuilder<T> implements EnumerationBuilder<T>
 {
 
 	@Override
@@ -77,9 +78,7 @@ public abstract class AbstractEnumerationBuilder<T>
 			T n = available.iterator().next();
 			// System.out.println("a: " + n);
 			enumerate(n);
-			// Use a linked list here, because elements will be appended and
-			// also removed from the front (it is used as a queue)
-			List<T> neighbours = new LinkedList<>();
+			List<T> neighbours = createList();
 			Set<T> neighbourSet = new HashSet<>();
 			addNeighbours(neighbours, neighbourSet, n);
 			while (!neighbourSet.isEmpty()) {
@@ -90,6 +89,8 @@ public abstract class AbstractEnumerationBuilder<T>
 			}
 		}
 	}
+
+	protected abstract List<T> createList();
 
 	protected abstract T chooseNext(List<T> neighbours, Set<T> neighbourSet);
 

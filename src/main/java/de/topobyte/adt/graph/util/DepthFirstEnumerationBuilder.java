@@ -17,6 +17,7 @@
 
 package de.topobyte.adt.graph.util;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -49,6 +50,14 @@ public class DepthFirstEnumerationBuilder<T>
 		T next = neighbours.remove(neighbours.size() - 1);
 		neighbourSet.remove(next);
 		return next;
+	}
+
+	@Override
+	protected List<T> createList()
+	{
+		// Use a array based list here, because elements will be appended and
+		// only removed from the tail (it is used as a stack)
+		return new ArrayList<>();
 	}
 
 }

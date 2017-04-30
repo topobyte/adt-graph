@@ -17,6 +17,7 @@
 
 package de.topobyte.adt.graph.util;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -49,6 +50,14 @@ public class BreadthFirstEnumerationBuilder<T>
 		T next = neighbours.remove(0);
 		neighbourSet.remove(next);
 		return next;
+	}
+
+	@Override
+	protected List<T> createList()
+	{
+		// Use a linked list here, because elements will be appended and
+		// also removed from the front (it is used as a queue)
+		return new LinkedList<>();
 	}
 
 }
