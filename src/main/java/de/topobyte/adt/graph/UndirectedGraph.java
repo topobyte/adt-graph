@@ -17,6 +17,11 @@
 
 package de.topobyte.adt.graph;
 
+import java.util.Set;
+
+import de.topobyte.adt.graph.factories.MapFactory;
+import de.topobyte.adt.graph.factories.SetFactory;
+
 /**
  * A class to represent an unweighted, undirected graph.
  * 
@@ -27,6 +32,17 @@ package de.topobyte.adt.graph;
  */
 public class UndirectedGraph<T> extends Graph<T>
 {
+
+	public UndirectedGraph()
+	{
+		super();
+	}
+
+	public UndirectedGraph(SetFactory<T> setFactory,
+			MapFactory<T, Set<T>> mapFactory)
+	{
+		super(setFactory, mapFactory);
+	}
 
 	/**
 	 * Add an undirected edge to the graph.

@@ -18,10 +18,14 @@
 package de.topobyte.adt.graph;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import de.topobyte.adt.graph.factories.HashMapFactory;
+import de.topobyte.adt.graph.factories.HashSetFactory;
+import de.topobyte.adt.graph.factories.MapFactory;
+import de.topobyte.adt.graph.factories.SetFactory;
 
 /**
  * A class to represent an unweighted directed graph.
@@ -34,22 +38,52 @@ import java.util.Set;
 public class Graph<T>
 {
 
+	private SetFactory<T> setFactory;
+	private MapFactory<T, Set<T>> mapFactory;
+
 	private Set<T> nodes;
 	private Map<T, Set<T>> edgesOut;
 	private Map<T, Set<T>> edgesIn;
 
 	public Graph()
 	{
-		nodes = new HashSet<>();
-		edgesOut = new HashMap<>();
-		edgesIn = new HashMap<>();
+		setDefaultFactories();
+		initNodesAndEdges();
 	}
 
-	private Graph(Set<T> nodes, Map<T, Set<T>> edgesOut, Map<T, Set<T>> edgesIn)
+	public Graph(SetFactory<T> setFactory, MapFactory<T, Set<T>> mapFactory)
 	{
+		setFactories(setFactory, mapFactory);
+		initNodesAndEdges();
+	}
+
+	private Graph(SetFactory<T> setFactory, MapFactory<T, Set<T>> mapFactory,
+			Set<T> nodes, Map<T, Set<T>> edgesOut, Map<T, Set<T>> edgesIn)
+	{
+		setFactories(setFactory, mapFactory);
+
 		this.nodes = nodes;
 		this.edgesOut = edgesOut;
 		this.edgesIn = edgesIn;
+	}
+
+	private void setDefaultFactories()
+	{
+		setFactories(new HashSetFactory<T>(), new HashMapFactory<T, Set<T>>());
+	}
+
+	private void setFactories(SetFactory<T> setFactory,
+			MapFactory<T, Set<T>> mapFactory)
+	{
+		this.setFactory = setFactory;
+		this.mapFactory = mapFactory;
+	}
+
+	private void initNodesAndEdges()
+	{
+		nodes = setFactory.create();
+		edgesOut = mapFactory.create();
+		edgesIn = mapFactory.create();
 	}
 
 	/**
@@ -65,8 +99,8 @@ public class Graph<T>
 			return;
 		}
 		nodes.add(node);
-		edgesOut.put(node, new HashSet<T>());
-		edgesIn.put(node, new HashSet<T>());
+		edgesOut.put(node, setFactory.create());
+		edgesIn.put(node, setFactory.create());
 	}
 
 	/**
@@ -300,7 +334,7 @@ public class Graph<T>
 	 */
 	public Graph<T> reversed()
 	{
-		return new Graph<>(nodes, edgesIn, edgesOut);
+		return new Graph<>(setFactory, mapFactory, nodes, edgesIn, edgesOut);
 	}
 
 }
