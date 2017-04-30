@@ -1,4 +1,4 @@
-// Copyright 2015 Sebastian Kuerten
+// Copyright 2017 Sebastian Kuerten
 //
 // This file is part of adt-graph.
 //
@@ -28,7 +28,7 @@ import de.topobyte.adt.graph.Graph;
  * @param <T>
  *            type of nodes in the graph.
  */
-public class BreadthFirstEnumerationBuilder<T>
+public class DepthFirstEnumerationBuilder<T>
 		extends AbstractEnumerationBuilder<T>
 {
 
@@ -38,7 +38,7 @@ public class BreadthFirstEnumerationBuilder<T>
 	 * @param graph
 	 *            the graph to build an enumeration for.
 	 */
-	public BreadthFirstEnumerationBuilder(Graph<T> graph)
+	public DepthFirstEnumerationBuilder(Graph<T> graph)
 	{
 		super(graph);
 	}
@@ -46,7 +46,7 @@ public class BreadthFirstEnumerationBuilder<T>
 	@Override
 	protected T chooseNext(List<T> neighbours, Set<T> neighbourSet)
 	{
-		T next = neighbours.remove(0);
+		T next = neighbours.remove(neighbours.size() - 1);
 		neighbourSet.remove(next);
 		return next;
 	}
