@@ -142,7 +142,6 @@ abstract class AbstractEnumerationBuilder<T> implements EnumerationBuilder<T>
 			neighbours.add(neighbour);
 			neighbourSet.add(neighbour);
 		}
-
 	}
 
 	private void addNeighboursReverse(List<T> neighbours, Set<T> neighbourSet,
