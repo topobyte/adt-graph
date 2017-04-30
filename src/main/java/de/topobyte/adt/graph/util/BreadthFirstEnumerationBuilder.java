@@ -20,6 +20,7 @@ package de.topobyte.adt.graph.util;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -75,7 +76,9 @@ public class BreadthFirstEnumerationBuilder<T> implements EnumerationBuilder<T>
 			T n = available.iterator().next();
 			// System.out.println("a: " + n);
 			enumerate(n);
-			List<T> neighbours = new ArrayList<>();
+			// Use a linked list here, because elements will be appended and
+			// also removed from the front (it is used as a queue)
+			List<T> neighbours = new LinkedList<>();
 			Set<T> neighbourSet = new HashSet<>();
 			addNeighbours(neighbours, neighbourSet, n);
 			while (!neighbourSet.isEmpty()) {
