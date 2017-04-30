@@ -26,7 +26,6 @@ import com.google.common.primitives.Ints;
 
 import de.topobyte.adt.graph.Graph;
 import de.topobyte.adt.graph.TestUtil;
-import de.topobyte.adt.graph.factories.TreeSetFactory;
 
 public class TestDepthFirstEnumeration
 {
@@ -55,6 +54,16 @@ public class TestDepthFirstEnumeration
 		test2(2, expected22);
 		test2(3, expected23);
 		test2(4, expected24);
+
+		List<Integer> expected31 = Ints.asList(1);
+		List<Integer> expected32 = TestUtil.descending(3, 1);
+		List<Integer> expected33 = TestUtil.descending(7, 1);
+		List<Integer> expected34 = TestUtil.descending(15, 1);
+
+		test3(1, expected31);
+		test3(2, expected32);
+		test3(3, expected33);
+		test3(4, expected34);
 	}
 
 	public void test1(int nLevels, List<Integer> expected)
@@ -62,7 +71,7 @@ public class TestDepthFirstEnumeration
 		Graph<Integer> graph = TestUtil.createBinaryTree(nLevels);
 
 		DepthFirstEnumerationBuilder<Integer> enumerationBuilder = new DepthFirstEnumerationBuilder<>(
-				graph, new TreeSetFactory<Integer>());
+				graph, TestUtil.TREE_SET_FACTORY);
 		List<Integer> enumeration = enumerationBuilder.buildEnumeration();
 
 		Assert.assertEquals(expected, enumeration);
@@ -73,8 +82,19 @@ public class TestDepthFirstEnumeration
 		Graph<Integer> graph = TestUtil.createBinaryTree(nLevels);
 
 		DepthFirstEnumerationBuilder<Integer> enumerationBuilder = new DepthFirstEnumerationBuilder<>(
-				graph, new TreeSetFactory<Integer>());
+				graph, TestUtil.TREE_SET_FACTORY);
 		enumerationBuilder.invertOrderOfNewNeighbors = true;
+		List<Integer> enumeration = enumerationBuilder.buildEnumeration();
+
+		Assert.assertEquals(expected, enumeration);
+	}
+
+	public void test3(int nLevels, List<Integer> expected)
+	{
+		Graph<Integer> graph = TestUtil.createBinaryTree(nLevels);
+
+		DepthFirstEnumerationBuilder<Integer> enumerationBuilder = new DepthFirstEnumerationBuilder<>(
+				graph, TestUtil.REVERSE_ORDER_TREE_SET_FACTORY);
 		List<Integer> enumeration = enumerationBuilder.buildEnumeration();
 
 		Assert.assertEquals(expected, enumeration);

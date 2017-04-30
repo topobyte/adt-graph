@@ -17,8 +17,13 @@
 
 package de.topobyte.adt.graph;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
+import de.topobyte.adt.graph.factories.SetFactory;
 import de.topobyte.adt.graph.factories.TreeMapFactory;
 import de.topobyte.adt.graph.factories.TreeSetFactory;
 
@@ -66,5 +71,42 @@ public class TestUtil
 
 		return graph;
 	}
+
+	public static List<Integer> ascending(int min, int max)
+	{
+		List<Integer> list = new ArrayList<>();
+		for (int i = min; i <= max; i++) {
+			list.add(i);
+		}
+		return list;
+	}
+
+	public static List<Integer> descending(int max, int min)
+	{
+		List<Integer> list = new ArrayList<>();
+		for (int i = max; i >= min; i--) {
+			list.add(i);
+		}
+		return list;
+	}
+
+	public static SetFactory<Integer> TREE_SET_FACTORY = new TreeSetFactory<>();
+
+	public static SetFactory<Integer> REVERSE_ORDER_TREE_SET_FACTORY = new SetFactory<Integer>() {
+
+		@Override
+		public Set<Integer> create()
+		{
+			return new TreeSet<>(new Comparator<Integer>() {
+
+				@Override
+				public int compare(Integer o1, Integer o2)
+				{
+					return o2.compareTo(o1);
+				}
+			});
+		}
+
+	};
 
 }

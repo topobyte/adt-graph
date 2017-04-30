@@ -17,7 +17,6 @@
 
 package de.topobyte.adt.graph.util;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
@@ -25,8 +24,6 @@ import org.junit.Test;
 
 import de.topobyte.adt.graph.Graph;
 import de.topobyte.adt.graph.TestUtil;
-import de.topobyte.adt.graph.util.BreadthFirstEnumerationBuilder;
-import de.topobyte.adt.graph.util.EnumerationBuilder;
 
 public class TestBreadtFirstEnumeration
 {
@@ -49,10 +46,7 @@ public class TestBreadtFirstEnumeration
 				graph);
 		List<Integer> enumeration = enumerationBuilder.buildEnumeration();
 
-		List<Integer> expected = new ArrayList<>();
-		for (int i = 1; i <= numNodes; i++) {
-			expected.add(i);
-		}
+		List<Integer> expected = TestUtil.ascending(1, numNodes);
 
 		Assert.assertEquals(expected, enumeration);
 	}
