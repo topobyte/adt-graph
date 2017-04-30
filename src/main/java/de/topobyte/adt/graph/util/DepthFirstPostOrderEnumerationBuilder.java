@@ -19,16 +19,18 @@ package de.topobyte.adt.graph.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import de.topobyte.adt.graph.Graph;
+import de.topobyte.adt.graph.factories.HashSetFactory;
+import de.topobyte.adt.graph.factories.SetFactory;
 
 public class DepthFirstPostOrderEnumerationBuilder<T>
 		implements EnumerationBuilder<T>
 {
 
+	SetFactory<T> setFactory;
 	Graph<T> graph;
 
 	List<T> enumeration;
@@ -36,9 +38,21 @@ public class DepthFirstPostOrderEnumerationBuilder<T>
 
 	public DepthFirstPostOrderEnumerationBuilder(Graph<T> graph)
 	{
+		this(graph, new HashSetFactory<T>());
+	}
+
+	public DepthFirstPostOrderEnumerationBuilder(Graph<T> graph,
+			SetFactory<T> setFactory)
+	{
 		this.graph = graph;
+		this.setFactory = setFactory;
+		init();
+	}
+
+	private void init()
+	{
 		enumeration = new ArrayList<>();
-		available = new HashSet<>();
+		available = setFactory.create();
 	}
 
 	@Override
