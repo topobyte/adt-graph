@@ -129,10 +129,20 @@ public class Graph<T>
 		edgesIn.remove(node);
 		edgesOut.remove(node);
 		for (T other : out) {
-			edgesIn.get(other).remove(node);
+			Set<T> edges = edgesIn.get(other);
+			if (edges == null) {
+				// this happens for self-loops on 'node'
+				continue;
+			}
+			edges.remove(node);
 		}
 		for (T other : in) {
-			edgesOut.get(other).remove(node);
+			Set<T> edges = edgesOut.get(other);
+			if (edges == null) {
+				// this happens for self-loops on 'node'
+				continue;
+			}
+			edges.remove(node);
 		}
 	}
 
